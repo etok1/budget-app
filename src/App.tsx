@@ -1,25 +1,41 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import './App.css'
 import Starter from './components/layout/Starter';
-import Home from './components/Home';
+import Home from './components/pages/Home';
+import Pots from './components/pages/Pots';
+import Header from './components/layout/Header';
+import Budget from './components/pages/Budget';
+import Transactions from './components/pages/Transactions';
+import { useEffect, useReducer } from 'react';
+import { budgetContext, budgetReducer, initialState } from './context/Context';
 
-export const ONBOARDING_KEY = "hasSeenOnboarding";
 
 
-function App() {
-  const hasSeenOnboarding = localStorage.getItem(ONBOARDING_KEY) === "true";
+
+export default function App() {
+ 
+const [state, dispatch] = useReducer(budgetReducer, initialState)
+
+useEffect(() => {
+  localStorage.setItem('budgetApp', JSON.stringify(state))
+}, [state])
 
   return (
+   <budgetContext.Provider value={{ state, dispatch }}>
     <BrowserRouter>
-     
+     <Header/>
         <Routes>
-          {!hasSeenOnboarding && <Route path="/start" element={<Starter />} />}
-          {hasSeenOnboarding && <Route path="/" element={<Home />} />}
+      <Route path="/" element={<Starter />} />
+         <Route path="/home" element={<Home /> } />
          
+         <Route path="/pots" element={<Pots />} />
+         <Route path="/budget" element={<Budget />} />
+          <Route path="/transactions" element={<Transactions />} />
         </Routes>
       
-      </BrowserRouter>
+      </BrowserRouter></budgetContext.Provider> 
   )
 }
 
-export default App
+
+

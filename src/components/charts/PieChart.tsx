@@ -1,7 +1,10 @@
-import { Pie, PieChart, Tooltip, Cell, } from 'recharts';
+import { Pie, PieChart, Tooltip, Cell, Label, } from 'recharts';
 import { RechartsDevtools } from '@recharts/devtools';
 
-
+interface CustomPieChartProps {
+  isAnimationActive?: boolean;
+  label: string,
+}
  const data = [
   { name: 'ffgg', value: 400, fill: '#0088FE' },
   { name: 'Group B', value: 300, fill: '#00C49F' },
@@ -10,12 +13,12 @@ import { RechartsDevtools } from '@recharts/devtools';
 ];
 
 // #endregion
-export default function PieChartWithPaddingAngle({ isAnimationActive = true }: { isAnimationActive?: boolean }) {
+export default function PieChartWithPaddingAngle({ isAnimationActive = true, label }: CustomPieChartProps ) {
   return (
     <PieChart style={{ width: '200px', maxHeight: '80vh', aspectRatio: 1 }} responsive> 
-    {/* <Label position="center" fill="#666" className='text-xs w-2'>
-            $555 out of $666
-          </Label> */}
+    <Label position="center" fill="#000" className='text-2xl w-2'>
+            {label}
+          </Label>
       <Pie 
         data={data}
         innerRadius="80%"

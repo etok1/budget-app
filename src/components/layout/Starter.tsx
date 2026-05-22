@@ -1,14 +1,22 @@
+
 import { HandCoins } from "lucide-react"
-import { ONBOARDING_KEY } from "../../App"
-import { useNavigate } from "react-router-dom"
+import {  useNavigate } from "react-router-dom"
+import {useFirstVisit} from '../../hooks/FirstVisit'
+import { useEffect } from "react"
 
 function Starter() {
 const navigate = useNavigate()
+const {hasVisited, markFirstVisit} = useFirstVisit()
+
+useEffect(() => {
+  if(hasVisited){
+    navigate('/home', {replace: true})
+  }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+}, [hasVisited])
 
 const handleStart = () => {
-    localStorage.setItem(ONBOARDING_KEY, 'true')
-
-    navigate('/home')
+    markFirstVisit()
 }
 
   return (
