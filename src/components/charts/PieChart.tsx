@@ -4,6 +4,7 @@ import { RechartsDevtools } from '@recharts/devtools';
 interface CustomPieChartProps {
   isAnimationActive?: boolean;
   label: string,
+  budgetData: []
 }
  const data = [
   { name: 'ffgg', value: 400, fill: '#0088FE' },
@@ -13,24 +14,24 @@ interface CustomPieChartProps {
 ];
 
 // #endregion
-export default function PieChartWithPaddingAngle({ isAnimationActive = true, label }: CustomPieChartProps ) {
+export default function PieChartWithPaddingAngle({ isAnimationActive = true, label, budgetData }: CustomPieChartProps ) {
   return (
     <PieChart style={{ width: '200px', maxHeight: '80vh', aspectRatio: 1 }} responsive> 
     <Label position="center" fill="#000" className='text-2xl w-2'>
-            {label}
+              {`$${label}`}
           </Label>
       <Pie 
-        data={data}
+        data={budgetData}
         innerRadius="80%"
         outerRadius="100%" 
         cornerRadius="50%"
         fill="#8884d8"
         paddingAngle={5}
-        dataKey="value"
+        dataKey="spent"
         isAnimationActive={isAnimationActive}
       >
-{data.map((entry, index) => (
-              <Cell key={`cell-${index}`} fill={entry.fill} />
+{budgetData.map((item) => (
+              <Cell key={item.id} fill={item.fill} />
             ))}
           </Pie>
           

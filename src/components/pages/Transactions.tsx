@@ -42,20 +42,24 @@ const DUMMY_DATA = [
       {/* <div className="mt-2 h-px flex items-center self-center w-[90%] bg-gray-800 opacity-50"></div> */}
       <div className="w-full mt-10">
         <table className="w-full">
-            <tr className="border-b border-gray-700">
-                <th className="px-3 py-4">Date</th>
-                <th className="px-3 py-4">Category</th>
-                <th className="px-3 py-4">Amount</th>
-                <th className="px-3 py-4">Type</th>
-            </tr>
-            {DUMMY_DATA.map((item) => (
-                 <tr className="border-b border-gray-700">
-                    <td className="px-3 py-2">{item.date}</td>
-                    <td className="px-3 py-2">{item.category}</td>
-                    <td className="px-3 py-2">{item.amount}</td>
-                    <td className="px-3 py-2">{item.type}</td>
+            <thead>
+                <tr className="border-b border-gray-700">
+                    <th className="px-3 py-4">Date</th>
+                    <th className="px-3 py-4">Category</th>
+                    <th className="px-3 py-4">Amount</th>
+                    <th className="px-3 py-4">Type</th>
                 </tr>
-            ))}
+            </thead>
+            <tbody>
+                {DUMMY_DATA.map((item) => (
+                    <tr className="border-b border-gray-700">
+                        <td className="px-3 py-2">{item.date}</td>
+                        <td className="px-3 py-2">{item.category}</td>
+                        <td className="px-3 py-2">{item.amount}</td>
+                        <td className="px-3 py-2">{item.type}</td>
+                    </tr>
+                ))}
+            </tbody>
         </table>
       </div>
     </div>

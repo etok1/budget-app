@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import './App.css'
 import Starter from './components/layout/Starter';
 import Home from './components/pages/Home';
@@ -8,6 +8,7 @@ import Budget from './components/pages/Budget';
 import Transactions from './components/pages/Transactions';
 import { useEffect, useReducer } from 'react';
 import { budgetContext, budgetReducer, initialState } from './context/Context';
+import { ProtectedRoute } from './Protected Routes/ProtectedRoute';
 
 
 
@@ -25,12 +26,16 @@ useEffect(() => {
     <BrowserRouter>
      <Header/>
         <Routes>
-      <Route path="/" element={<Starter />} />
-         <Route path="/home" element={<Home /> } />
+      <Route path="/" element={<Navigate to="/login" />} />
+<Route path="/login" element={<Starter />} />
+          <Route path="/home" element={
+          <ProtectedRoute>
+            <Home />  </ProtectedRoute>
+          } />
          
-         <Route path="/pots" element={<Pots />} />
-         <Route path="/budget" element={<Budget />} />
-          <Route path="/transactions" element={<Transactions />} />
+         <Route path="/pots" element={<ProtectedRoute><Pots /></ProtectedRoute>} />
+         <Route path="/budget" element={<ProtectedRoute><Budget /></ProtectedRoute>} />
+          <Route path="/transactions" element={<ProtectedRoute><Transactions /></ProtectedRoute>} />
         </Routes>
       
       </BrowserRouter></budgetContext.Provider> 

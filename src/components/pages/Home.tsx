@@ -6,6 +6,8 @@ import TransactionBlock from "../Blocks/TransactionBlock"
 import PieChartWithPaddingAngle from "../charts/PieChart"
 import BudgetBlock from "../Blocks/BudgetBlock"
 import { data } from "../../data"
+import { useContext } from "react"
+import { budgetContext } from "../../context/Context"
 
 const moneyCategoryData = [
   {
@@ -23,6 +25,12 @@ const moneyCategoryData = [
 
 const sectionContainer = `bg-white px-10 py-5 flex flex-col items-start rounded-lg`
 function Home() {
+const {state} = useContext(budgetContext)
+
+const totalBudget = state.budgets.reduce((acc, item) => {
+      return acc + item.spent
+},0)
+
   return (
     <div className="mt-10 flex h-screen flex-col items-start justify-start text-white font-poppins px-4">
       <h1>Overview</h1>
@@ -40,13 +48,17 @@ function Home() {
             <div className="mt-7 w-full flex gap-16">
               <div className="flex items-center gap-5 bg-[#FFF5EE] py-5 px-7 rounded-2xl text-[#242424]">
                 <PiggyBank size={65} strokeWidth={1.3} color="#00C49F"/>
-                <div className="flex flex-col h-full items-start gap-3"><p className="text-sm">Total saved</p><h3 className="text-3xl font-black">$850</h3></div>
+                <div className="flex flex-col h-full items-start gap-3"><p className="text-sm">Total saved</p><h3 className="text-3xl font-black">
+                  {state.pots.reduce((acc, item) => {
+                      return acc + item.saved
+                  },0)}
+                  </h3></div>
               </div>
               <div className="grid grid-cols-2 grid-rows-2 gap-5">
-                <BudgetBlock header="University fund" price={110} color="#0088FE"/>
-                <BudgetBlock header="University fund" price={110} color="#00C49F"/>
-                <BudgetBlock header="University fund" price={110} color="#FFBB28"/>
-                <BudgetBlock header="University fund" price={110} color="#FF8042"/>
+                {state.pots.map((item) => (
+                  <BudgetBlock key={item.id} header={item.name} price={item.saved} color="#0088FE"/>
+                ))}
+                
               </div>
             </div>
           </div>
@@ -62,10 +74,10 @@ function Home() {
         <div className={`${sectionContainer} w-[40%]`}>
           <FinanceBlock header={'Budget'} link={'/budget'}/>
           <div className="mt-10 w-full flex justify-around">
-            <PieChartWithPaddingAngle label="$850"/>
+            <PieChartWithPaddingAngle label={totalBudget} budgetData={state.budgets}/>
             <div className="flex flex-col gap-3">
-              {data.map((item) => (
-                <BudgetBlock header={item.name} price={item.value} color={item.fill}/>
+              {state.budgets.map((item) => (
+                <BudgetBlock header={item.name} price={item.spent} color={item.fill}/>
               ))}
             </div>
           </div>

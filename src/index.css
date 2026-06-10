@@ -16,17 +16,17 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
-body {
+/* body {
   margin: 0;
   display: flex;
   place-items: center;
 
   min-height: 100vh;
   font-family: poppins;
-}
-body {
+} */
+/* body {
   background-color: #08090c;
-}
+} */
 
 h1 {
   font-size: 3.2em;
