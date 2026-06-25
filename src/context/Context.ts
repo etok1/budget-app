@@ -15,7 +15,23 @@ export const budgetContext = React.createContext(null);
 //   | { type: "DELETE_BUDGET"; payload: string };
 
 export const initialState = JSON.parse(localStorage.getItem("budgetApp")) || {
-  transactions: [],
+  transactions: [
+    {
+      title: "Starbucks",
+      date: "24-12-12",
+      category: "Food",
+      subcategory: "Coffee",
+      amount: 26,
+      type: "expense",
+    },
+    {
+      title: "June Salary",
+      date: "24-12-32",
+      category: "Salary",
+      amount: 6,
+      type: "income",
+    },
+  ],
   pots: [],
   budgets: [],
 };

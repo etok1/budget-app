@@ -8,6 +8,7 @@ function InputRangeItem({ category, current, target }: BudgetItemProps) {
   const percentage = Math.min((current / target) * 100, 100);
   const isOver = current > target;
 const handleEdit = () => {}
+const handleRemove = () => {}
 const handleAdd = () => {}
   return (
     <div className="w-full space-y-2" >
@@ -24,9 +25,14 @@ const handleAdd = () => {}
             onClick={() => handleEdit()}
             className="text-gray-400 hover:text-gray-700 text-xs transition"
           >
-            Edit /
-          </button>
+            Edit
+          </button> /
           <button
+            onClick={() => handleRemove()}
+            className="text-gray-400 hover:text-gray-700 text-xs transition"
+          >Remove
+        </button> /
+        <button
             onClick={() => handleAdd()}
             className="text-gray-400 hover:text-gray-700 text-xs transition"
           >Add

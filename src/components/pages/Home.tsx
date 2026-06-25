@@ -9,19 +9,7 @@ import { data } from "../../data"
 import { useContext } from "react"
 import { budgetContext } from "../../context/Context"
 
-const moneyCategoryData = [
-  {
-    category: 'Current valance',
-    value: '1,678.00',
-    isActive: true,
-  },{
-    category: 'Income',
-    value: '7,654.00', isActive: false,
-  },{
-    category: 'Expenses',
-    value: '3,666.99', isActive: false,
-  },
-]
+
 
 const sectionContainer = `bg-white px-10 py-5 flex flex-col items-start rounded-lg`
 function Home() {
@@ -30,6 +18,48 @@ const {state} = useContext(budgetContext)
 const totalBudget = state.budgets.reduce((acc, item) => {
       return acc + item.spent
 },0)
+
+const randomColor = () => {
+  const colors = ['bg-red-600', 'bg-green-600', 'bg-blue-600', 'bg-purple-600', 'bg-yellow-600']
+
+  const randomIndex = Math.floor(Math.random() * colors.length)
+
+  return colors[randomIndex]
+}
+
+const sumIncome = () => {
+  return state.transactions.reduce((sum, item) => {
+    if(item.type === 'income'){
+      return sum + item.amount
+    }
+
+    return sum
+  }, 0)
+}
+
+const sumExpense = () => {
+  return state.transactions.reduce((sum, item) => {
+    if(item.type === 'expense'){
+      return sum + item.amount
+    }
+
+    return sum
+  }, 0)
+}
+
+const moneyCategoryData = [
+  {
+    category: 'Current valance',
+    value: '1,678.00',
+    isActive: true,
+  },{
+    category: 'Income',
+    value: sumIncome(), isActive: false,
+  },{
+    category: 'Expenses',
+    value: sumExpense(), isActive: false,
+  },
+]
 
   return (
     <div className="mt-10 flex h-screen flex-col items-start justify-start text-white font-poppins px-4">
@@ -65,8 +95,10 @@ const totalBudget = state.budgets.reduce((acc, item) => {
           
           <div className={sectionContainer}>
              <FinanceBlock header={'Transaction'} link={'/transactions'}/>
-             <div className="mt-5 w-full">
-              <TransactionBlock name="Emma Edwards" icon="bg-amber-950" type="income" amount={55.88} date="19 Aug 2026"/>
+             <div className="mt-5 w-full flex flex-col gap-2">
+              {state.transactions.slice(0, 2).map((item) => (
+                <TransactionBlock key={item.id} title={item.title} category={item.category} subcategory={item.subcategory} icon={randomColor()} type={item.type} amount={item.amount} date={item.date}/>
+              ))}
               </div>  
           </div>
         </div>
