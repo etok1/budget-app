@@ -47,10 +47,16 @@ const sumExpense = () => {
   }, 0)
 }
 
+const sumTotal = () => {
+  return state.pots.reduce((sum, item) => {
+    return sum + item.saved  
+  },0)
+}
+
 const moneyCategoryData = [
   {
     category: 'Current valance',
-    value: '1,678.00',
+    value: sumIncome() - sumExpense(),
     isActive: true,
   },{
     category: 'Income',

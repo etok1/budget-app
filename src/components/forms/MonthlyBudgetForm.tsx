@@ -4,6 +4,14 @@ import { Button, Field, Fieldset, Input, Label, Legend, Select, Textarea } from 
 function MonthlyBudgetForm ({onSubmit}) {
 const inputClass = `mt-1 block bg-amber-50 text-black`
 
+const handleSubmit = (e: React.FormEvent) => {
+  e.preventDefault();
+
+  console.log9('montlybudget')
+
+  localStorage.setItem(JSON.parse(), 'monthly-budget')
+};
+
   return (
     <>
        <Fieldset className="flex flex-col min-h-full items-center justify-center space-y-8 bg-black p-4">
@@ -24,7 +32,7 @@ const inputClass = `mt-1 block bg-amber-50 text-black`
                             <Label className="block">Delivery notes</Label>
                             <Textarea className="mt-1 block" name="notes" />
                         </Field>
-                        <Button onClick={onSubmit}>Edit monthly budget</Button>
+                        <Button onClick={handleSubmit}>Edit monthly budget</Button>
                     </Fieldset>
     </>
   )

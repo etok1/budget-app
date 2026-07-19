@@ -56,11 +56,17 @@ export const budgetReducer = (state, action) => {
         pots: [...state.pots, action.payload],
       };
     case "EDIT_POT":
+      console.log("payload", action.payload);
+
+      const updatedState = state.pots.map((item) =>
+        item.id === action.payload.id ? { ...item, ...action.payload } : item,
+      );
+
+      console.log(updatedState);
+
       return {
         ...state,
-        pots: state.pots.map((item) =>
-          item.id === action.payload.id ? { ...item, ...action.payload } : item,
-        ),
+        pots: updatedState,
       };
     case "DELETE_POT":
       return {
@@ -70,9 +76,28 @@ export const budgetReducer = (state, action) => {
     case "ADD_TO_POT":
       return {
         ...state,
-        pots: state.pots.map((item) =>
-          item.id === action.payload.id ? { ...item, ...action.payload } : item,
-        ),
+        pots: state.pots.map((item) => {
+          if (item.id === action.payload.id) {
+            return {
+              ...item,
+              saved: item.saved + action.payload.amount,
+            };
+          }
+          return item;
+        }),
+      };
+    case "ADD_TO_BUDGET":
+      return {
+        ...state,
+        budgets: state.budgets.map((item) => {
+          if (item.id === action.payload.id) {
+            return {
+              ...item,
+              spent: item.spent + action.payload.amount,
+            };
+          }
+          return item;
+        }),
       };
     case "ADD_BUDGET":
       return {
@@ -85,6 +110,19 @@ export const budgetReducer = (state, action) => {
         budgets: [
           ...state.budgets.filter((item) => item.id !== action.payload),
         ],
+      };
+    case "EDIT_BUDGET":
+      console.log("payload", action.payload);
+
+      const updated = state.budgets.map((item) =>
+        item.id === action.payload.id ? { ...item, ...action.payload } : item,
+      );
+
+      console.log(updated);
+
+      return {
+        ...state,
+        budgets: updated,
       };
   }
 };

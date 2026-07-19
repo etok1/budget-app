@@ -19,6 +19,13 @@ const submitForm = (typeDispatch, value) =>{
 setIsActiceModal(false)
 }
 
+// const handleAddBudget = () => {
+//   dispatch({
+//   type: 'ADD_BUDGET',
+//   payload: value
+// });
+// }
+
 console.log(isActiceModal)
   return (
 <div className="mt-10 flex h-screen flex-col items-start justify-start text-white font-poppins px-4">
@@ -31,38 +38,35 @@ console.log(isActiceModal)
           </div>
           <div className="mt-3 flex flex-col w-full justify-start gap-2.5">
             {state.budgets.map((item) => (
-              <InputRangeItem key={item.id} category={item.name} current={item.spent} target={item.target}/>
+              <InputRangeItem key={item.id} id={item.id} category={item.name} spent={item.spent} target={item.limit}/>
             ))}
             
     
           </div>
         </div>
-        <div className="mt-10 px-6 py-4 flex flex-col items-start bg-[#FFF5EE] rounded-2xl text-black">
+        {/* <div className="mt-10 px-6 py-4 flex flex-col items-start bg-[#FFF5EE] rounded-2xl text-black">
             <h2 className="text-2xl font-semibold">Monthly Overview. March 2026</h2>
             <div className="mt-3 w-full text-left text-sm flex flex-col gap-0.5">
               <p>Budgeted: <span className="font-bold">$1000</span></p>
               <p className="text-red-700">Spent: <span className="font-bold">$740</span></p>
               <p className="text-green-700">Remaining: <span className="font-bold">$260</span></p>
             </div>
-        </div>
+        </div> */}
       </div>
       <div className="w-[48%] h-fit mt-10 px-6 py-4 flex flex-col items-start bg-[#FFF5EE] rounded-2xl text-black">
           <h2 className="text-2xl font-semibold">Quick actions</h2>
           <div className="mt-5 w-full grid grid-cols-2 grid-rows-2 gap-3 items-start"> 
                 <button className="text-blue-500 bg-blue-100 p-2 rounded-2xl" onClick={() => setIsActiceModal('budget')}>Add new budget</button>
-                <button className="text-blue-500 bg-blue-100 p-2 rounded-2xl">Edit limits</button>
-                <button className="text-blue-500 bg-blue-100 p-2 rounded-2xl"  onClick={() => setIsActiceModal('monthly')}>Edit monthly budget</button>
-    
           </div>
         </div>
     </div>
     <Modal isOpen={isActiceModal === 'budget'} setIsOpen={setIsActiceModal}>
       <BudgetForm onSubmit={submitForm}/>
     </Modal>
-    
+{/*     
     <Modal isOpen={isActiceModal === 'monthly'} setIsOpen={setIsActiceModal}>
       <MonthlyBudgetForm onSubmit={submitForm}/>
-    </Modal>
+    </Modal> */}
 </div>
 
   )
